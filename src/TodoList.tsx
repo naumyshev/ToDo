@@ -1,14 +1,30 @@
-import React from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TaskType} from "./App";
 
 type PropsType = {
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskID: number) => void
+    removeTask: (taskID: string) => void
     changeFilter: (filter: FilterValuesType) => void
+    adTask: (taskTitle: string) => void
 }
 
 function TodoList(props: PropsType) {
+
+    const [title, setTitle] = useState<string>("")
+    const addTask = () => {
+        props.adTask(title)
+        setTitle("")
+    }
+    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
+    const onKeyPressAddTask = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            addTask()
+        }
+    }
+    const setAllFilterValue = () => props.changeFilter("all")
+    const setActiveFilterValue = () => props.changeFilter("active")
+    const setCompletedFilterValue = () => props.changeFilter("completed")
 
     const tasksJSX = props.tasks.map(task => {
         return (
@@ -24,16 +40,20 @@ function TodoList(props: PropsType) {
         <div>
             <h3>{props.title}</h3>
             <div>
-                <input/>
-                <button>+</button>
+                <input
+                    value={title}
+                    onChange={changeTitle}
+                    onKeyPress={onKeyPressAddTask}
+                />
+                <button onClick={addTask}>+</button>
             </div>
             <ul>
                 {tasksJSX}
             </ul>
             <div>
-                <button onClick={() => props.changeFilter("all")}>All</button>
-                <button onClick={() => props.changeFilter("active")}>Active</button>
-                <button onClick={() => props.changeFilter("completed")}>Completed</button>
+                <button onClick={setAllFilterValue}>All</button>
+                <button onClick={setActiveFilterValue}>Active</button>
+                <button onClick={setCompletedFilterValue}>Completed</button>
             </div>
         </div>
     )
