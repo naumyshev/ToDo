@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
+import {Input} from "./components/Input";
 
 export type FilterValuesType = "all" | "active" | "completed";
 type TodolistType = {
@@ -34,6 +35,21 @@ function App() {
             {id: v1(), title: "React Book", isDone: true}
         ]
     });
+
+    const addTodoList = (title: string) => {
+        let newID=v1()
+        let newTodo: TodolistType = {id: newID, title: title, filter: "all"}
+        setTodolists([newTodo, ...todolists])
+        setTasks({...tasks, [newID]: [{id: v1(), title: "Enter your task", isDone: false}]})
+    }
+
+    const updateTask = (todolistId: string, taskId: string, title: string) => {
+        setTasks({...tasks, [todolistId]: tasks[todolistId].map(m => m.id === taskId ? {...m, title} : m)})
+    }
+
+    const updateTodoList = (todolistId: string, title: string) => {
+        setTodolists(todolists.map(m => m.id === todolistId ? {...m, title} : m))
+    }
 
 
     function removeTask(id: string, todolistId: string) {
@@ -87,6 +103,7 @@ function App() {
 
     return (
         <div className="App">
+            <Input callBack={addTodoList}/>
             {
                 todolists.map(tl => {
                     let allTodolistTasks = tasks[tl.id];
@@ -110,6 +127,8 @@ function App() {
                         changeTaskStatus={changeStatus}
                         filter={tl.filter}
                         removeTodolist={removeTodolist}
+                        updateTask={updateTask}
+                        updateTodoList={updateTodoList}
                     />
                 })
             }
