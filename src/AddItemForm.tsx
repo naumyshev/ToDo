@@ -6,26 +6,27 @@ type AddItemFormPropsType = {
 
 export const AddItemForm = (props: AddItemFormPropsType) => {
 
-    let [title, setTitle] = useState("")
-    let [error, setError] = useState<string | null>(null)
+    const [title, setTitle] = useState("")
+    const [error, setError] = useState<string | null>(null)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
+    }
+
+    const addItem = () => {
+        const newTitle = title.trim()
+        if (newTitle !== "") {
+            props.addItem(newTitle);
+            setTitle("");
+        } else {
+            setError("Title is required");
+        }
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null);
         if (e.key === "Enter") {
             addItem();
-        }
-    }
-
-    const addItem = () => {
-        if (title.trim() !== "") {
-            props.addItem(title.trim());
-            setTitle("");
-        } else {
-            setError("Title is required");
         }
     }
 
