@@ -27,25 +27,21 @@ type PropsType = {
 export function Todolist(props: PropsType) {
 
     const addTask = (title: string) => {
-      props.addTask(title, props.todolistID)
+        props.addTask(title, props.todolistID)
     }
 
-
-
-    const onAllClickHandler = () => props.changeFilter("all", props.todolistID);
-    const onActiveClickHandler = () => props.changeFilter("active", props.todolistID);
-    const onCompletedClickHandler = () => props.changeFilter("completed", props.todolistID);
+    const onFilterClickHandler = (filter: FilterValuesType) => props.changeFilter(filter, props.todolistID)
 
     const changeTodolistTitle = (newTitle: string) => {
-      props.changeTodolistTitle(newTitle, props.todolistID)
+        props.changeTodolistTitle(newTitle, props.todolistID)
     }
 
     return <div>
         <h3>
-            <EditableSpan title={props.title} changeTitle={changeTodolistTitle} />
-            <button onClick={()=>props.removeTodolist(props.todolistID)}>X</button>
+            <EditableSpan title={props.title} changeTitle={changeTodolistTitle}/>
+            <button onClick={() => props.removeTodolist(props.todolistID)}>X</button>
         </h3>
-        <AddItemForm addItem={addTask} />
+        <AddItemForm addItem={addTask}/>
         <ul>
             {
                 props.tasks.map(t => {
@@ -70,11 +66,15 @@ export function Todolist(props: PropsType) {
         </ul>
         <div>
             <button className={props.filter === 'all' ? "active-filter" : ""}
-                    onClick={onAllClickHandler}>All</button>
+                    onClick={() => onFilterClickHandler('all')}>All
+            </button>
             <button className={props.filter === 'active' ? "active-filter" : ""}
-                onClick={onActiveClickHandler}>Active</button>
+                    onClick={() => onFilterClickHandler('active')}>Active
+            </button>
             <button className={props.filter === 'completed' ? "active-filter" : ""}
-                onClick={onCompletedClickHandler}>Completed</button>
+                    onClick={() => onFilterClickHandler('completed')}>Completed
+            </button>
         </div>
     </div>
 }
+
