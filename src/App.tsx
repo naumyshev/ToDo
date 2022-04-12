@@ -10,7 +10,6 @@ type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
-    // tasks: any
 }
 
 type TaskStateType = {
@@ -64,7 +63,7 @@ function App() {
                 .map(t => t.id === taskId ? {...t, isDone} : t)
         })
     }
-    
+
     function changeTaskTitle(taskId: string, title: string, todolistID: string) {
         setTasks({
             ...tasks,
@@ -72,7 +71,6 @@ function App() {
                 .map(t => t.id === taskId ? {...t, title} : t)
         })
     }
-
 
     // todolists:
     function changeTodolistFilter(filter: FilterValuesType, todolistID: string) {
@@ -133,7 +131,7 @@ function App() {
 
     return (
         <div className="App">
-            <AddItemForm addItem={addTodolist} />
+            <AddItemForm addItem={addTodolist}/>
             {todolistComponents}
         </div>
     );
