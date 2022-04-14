@@ -3,6 +3,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 type EditableSpanPropsType = {
     title: string
     changeTitle: (title: string) => void
+    classes: string
 }
 
 export const EditableSpan = (props: EditableSpanPropsType) => {
@@ -37,6 +38,7 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
                 onKeyPress={onKeyPressHandler}
                 onChange={onChangeHandler}/>
             : <span
+                className={props.classes}
                 onDoubleClick={onEditMode}>
                 {props.title}
             </span>
