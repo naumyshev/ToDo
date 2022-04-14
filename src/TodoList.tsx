@@ -3,7 +3,7 @@ import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, ButtonGroup, Checkbox, IconButton} from "@material-ui/core";
-import {Delete, DeleteOutline} from "@material-ui/icons";
+import {DeleteOutline} from "@material-ui/icons";
 
 export type TaskType = {
     id: string
@@ -40,11 +40,12 @@ export function Todolist(props: PropsType) {
 
     return <div>
         <h3>
-            <EditableSpan title={props.title} changeTitle={changeTodolistTitle}/>
+            <EditableSpan title={props.title} classes={' '} changeTitle={changeTodolistTitle}/>
             <IconButton
                 onClick={() => props.removeTodolist(props.todolistID)}
-                size={"small"}>
-                <DeleteOutline />
+                size={"small"}
+                color={'primary'}>
+                <DeleteOutline/>
             </IconButton>
             {/*<button onClick={() => props.removeTodolist(props.todolistID)}>X</button>*/}
         </h3>
@@ -60,7 +61,7 @@ export function Todolist(props: PropsType) {
                         props.changeTaskTitle(t.id, newTitle, props.todolistID)
                     }
 
-                    return <li key={t.id} className={t.isDone ? "is-done" : ""}>
+                    return <li key={t.id} >
                         <Checkbox
                             size={'small'}
                             color={'primary'}
@@ -72,13 +73,17 @@ export function Todolist(props: PropsType) {
                         {/*<input type="checkbox"*/}
                         {/*       onChange={onChangeHandler}*/}
                         {/*       checked={t.isDone}/>*/}
-                        <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
+                        <EditableSpan
+                            title={t.title}
+                            classes={t.isDone ? "is-done" : ""}
+                            changeTitle={changeTaskTitle}
+                            />
                         {/*<span>{t.title}</span>*/}
                         <IconButton
                             onClick={onClickHandler}
                             color={'primary'}
                             size={"small"}>
-                            <DeleteOutline/>
+                            <DeleteOutline fontSize={'small'}/>
                         </IconButton>
                         {/*<button onClick={onClickHandler}>x</button>*/}
                     </li>
