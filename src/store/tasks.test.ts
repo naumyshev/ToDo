@@ -55,3 +55,20 @@ test('case SUB of salaryReducer', ()=> {
     expect(result).toBe(600)
     expect(salaryReducer(salary, testAction)).toBe(salary)
 })
+
+test('case MULT of salaryReducer', ()=> {
+    const salary: StateType = 800
+    const action: ActionType = {
+        type: 'MULT',
+        n: 2
+    }
+
+    const testAction: ActionType = {
+        type: 'TEST',
+        n: 200
+    }
+
+    const result = salaryReducer(salary, action)
+    expect(result).toBe(1600)
+    expect(salaryReducer(salary, testAction)).toBe(salary)
+})
