@@ -39,7 +39,7 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
                    className={error ? "error" : ""}
             />
             <IconButton onClick={addItem}>
-                <AddBoxOutlined/>
+                <AddBoxOutlined color={"primary"}/>
             </IconButton>
             {/*<button onClick={addItem}>+</button>*/}
             {error && <div className="error-message">{error}</div>}
