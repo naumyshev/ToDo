@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
-import {Button, ButtonGroup, Checkbox, IconButton} from "@material-ui/core";
+import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem} from "@material-ui/core";
 import {DeleteOutline} from "@material-ui/icons";
 
 export type TaskType = {
@@ -50,7 +50,8 @@ export function Todolist(props: PropsType) {
             {/*<button onClick={() => props.removeTodolist(props.todolistID)}>X</button>*/}
         </h3>
         <AddItemForm addItem={addTask}/>
-        <ul>
+        {/*<ul>*/}
+        <List>
             {
                 props.tasks.map(t => {
                     const onClickHandler = () => props.removeTask(t.id, props.todolistID)
@@ -61,7 +62,10 @@ export function Todolist(props: PropsType) {
                         props.changeTaskTitle(t.id, newTitle, props.todolistID)
                     }
 
-                    return <li key={t.id} >
+                    // return <li key={t.id} >
+                    return <ListItem
+                        style={{padding: "0"}}
+                        key={t.id} >
                         <Checkbox
                             size={'small'}
                             color={'primary'}
@@ -86,10 +90,11 @@ export function Todolist(props: PropsType) {
                             <DeleteOutline fontSize={'small'}/>
                         </IconButton>
                         {/*<button onClick={onClickHandler}>x</button>*/}
-                    </li>
+                    </ListItem>
                 })
             }
-        </ul>
+        {/*</ul>*/}
+        </List>
         <ButtonGroup
             size={'small'}
             variant={'outlined'}
