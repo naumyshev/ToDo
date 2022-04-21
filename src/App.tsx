@@ -3,6 +3,7 @@ import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from "./AddItemForm";
+import {Paper} from "@material-ui/core";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -112,20 +113,22 @@ function App() {
         }
 
         return (
-            <Todolist
-                key={tl.id}
-                todolistID={tl.id}
-                title={tl.title}
-                tasks={tasksForTodolist}
-                removeTask={removeTask}
-                changeFilter={changeTodolistFilter}
-                addTask={addTask}
-                changeTaskStatus={changeTaskStatus}
-                filter={tl.filter}
-                removeTodolist={removeTodolist}
-                changeTaskTitle={changeTaskTitle}
-                changeTodolistTitle={changeTodolistTitle}
-            />
+            <Paper elevation={8} style={{padding: "15px"}}>
+                <Todolist
+                    key={tl.id}
+                    todolistID={tl.id}
+                    title={tl.title}
+                    tasks={tasksForTodolist}
+                    removeTask={removeTask}
+                    changeFilter={changeTodolistFilter}
+                    addTask={addTask}
+                    changeTaskStatus={changeTaskStatus}
+                    filter={tl.filter}
+                    removeTodolist={removeTodolist}
+                    changeTaskTitle={changeTaskTitle}
+                    changeTodolistTitle={changeTodolistTitle}
+                />
+            </Paper>
         )
     })
 
